@@ -33,27 +33,31 @@ $ source activate gxvaes_env
 ## Experimental Reproduction
 
   - **STEP 1**: Pretrain ProfileVAE:
-  ``` 
+
+  ```bash
   $ python main.py --train_gene_vae
+  $ # python main.py --use_seed --train_gene_vae --gene_epochs 100
   ```
+
   - **STEP 2**: Test the trained ProfileVAE:
-  ```
+  ```bash
   $ python main.py --test_gene_vae
   ```
   - **STEP 3**: Train MolVAE:
-  ```  
+  ```  bash
   $ python main.py --train_smiles_vae
+  $ # python main.py --use_seed --train_smiles_vae --smiles_epochs 100
   ```
   - **STEP 4**: Test the trained MolVAE:
-  ```
+  ```bash
   $ python main.py --test_smiles_vae
   ```
   - **STEP 5**: Generate molecules for the 10 ligands using GxVAEs
-  ```
+  ```bash
   $ python main.py --generation
   ```	
   - **STEP 6**: Calculate Tanimoto similarity between a source ligand and generated SMILES strings: 
-  ```
+  ```bash
   $ python main.py --calculate_tanimoto --protein_name ***
   ```
 &nbsp;&nbsp;&nbsp;&nbsp;Note that '***' indicates a protein name, such as 'AKT1'.
