@@ -103,7 +103,7 @@ def train_gene_vae(args):
     alphas = torch.cat([
         torch.linspace(0.99, alpha, int(args.gene_epochs/2)), 
         alpha * torch.ones(args.gene_epochs - int(args.gene_epochs/2))
-    ]).double().to(get_device())
+    ]).to(torch.float32 if torch.backends.mps.is_available() else torch.double).to(get_device())
 
     # Prepare file to save results
     with open(args.gene_vae_train_results, 'a+') as wf:

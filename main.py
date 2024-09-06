@@ -85,6 +85,7 @@ def main(args):
         np.random.seed(0)
         torch.manual_seed(0)
         torch.cuda.manual_seed(0)
+        torch.mps.manual_seed(0)
 
     # ========================================================= #
     #                    1. Train GeneVAE                       #

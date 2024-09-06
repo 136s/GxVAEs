@@ -20,8 +20,8 @@ def kld_loss(mu, logvar):
         KLD of the specified distribution and a unit Gaussian.
     """
 
-    mu = mu.double().to(get_device())
-    logvar = logvar.double().to(get_device())
+    mu = mu.to(torch.float32 if torch.backends.mps.is_available() else torch.double).to(get_device())
+    logvar = logvar.to(torch.float32 if torch.backends.mps.is_available() else torch.double).to(get_device())
 
     kld = -0.5 * torch.sum(1 + logvar - mu.pow(2) - logvar.exp())
 
@@ -29,7 +29,12 @@ def kld_loss(mu, logvar):
 
 # ============================================================================
 def get_device():
-    return torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    if torch.cuda.is_available():
+        return torch.device("cuda")
+    elif torch.backends.mps.is_available():
+        return torch.device("mps")
+    else:
+        return torch.device("cpu")
 
 # ============================================================================
 def show_gene_vae_hyperparamaters(args):

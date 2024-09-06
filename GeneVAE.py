@@ -197,7 +197,7 @@ class GeneVAE(nn.Module):
             joint_loss, rec_loss, kld_loss
         """
         rec_loss = self.reconstruction_loss(outputs, targets)
-        rec_loss = rec_loss.double().to(get_device())
+        rec_loss = rec_loss.to(torch.float32 if torch.backends.mps.is_available() else torch.double).to(get_device())
 
         kld_loss = self.kld_loss(self.mu, self.logvar)
 

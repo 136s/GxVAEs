@@ -114,7 +114,7 @@ def train_smiles_vae(
             alphas = torch.cat([
                 torch.linspace(0.99, 0.5, int(args.smiles_epochs/2)), 
                 0.5 * torch.ones(args.smiles_epochs - int(args.smiles_epochs/2))
-            ]).double().to(get_device())
+            ]).to(torch.float32 if torch.backends.mps.is_available() else torch.double).to(get_device())
 
             joint_loss, rec_loss, kld_loss = smiles_vae.joint_loss(
                 decoded, 
